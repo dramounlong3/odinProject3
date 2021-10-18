@@ -75,12 +75,19 @@
     let colorMode = document.querySelector("#colorMode");
     let rainbow = document.querySelector("#rainbow");
     let currentMode = document.querySelector("#mode");
+    let color = document.querySelector("#color");
     let mode = "colorMode";
+    let eraserFalse = false;
+    let preColor = "";
 
     //handle rainbow
     colorMode.addEventListener("click", (e) => {
       mode = "colorMode";
       currentMode.innerHTML = "color mode";
+      if (eraserFalse === true) {
+        color.value = preColor;
+        eraserFalse = false;
+      }
     });
 
     rainbow.addEventListener("click", (e) => {
@@ -108,7 +115,6 @@
       littleBox.childNodes.forEach((element) => {
         element.addEventListener("mouseover", (e) => {
           if (mode === "colorMode") {
-            let color = document.querySelector("#color");
             e.target.style.backgroundColor = color.value;
           } else {
             let randomColor = Math.floor(Math.random() * 16777215).toString(16);
@@ -161,9 +167,11 @@
     let eraser = document.querySelector("#eraser");
     //handle eraser
     eraser.addEventListener("click", function (e) {
+      eraserFalse = true;
       let color = document.querySelector("#color");
       mode = "colorMode";
       currentMode.innerHTML = "color mode";
+      preColor = color.value;
       color.value = "#e6e6e6";
     });
   </script>
